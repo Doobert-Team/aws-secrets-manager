@@ -13,7 +13,7 @@ class RefreshAwsSecret extends Command
 
     public function handle(AWSSecretsManagerService $service): int
     {
-        $secretName = trim((string) config('services.aws_secrets.name', ''));
+        $secretName = trim((string) config('aws-secrets-manager.name', ''));
 
         if ($secretName === '') {
             $this->error('AWS_SECRETS_NAME is not set. Nothing to refresh.');
