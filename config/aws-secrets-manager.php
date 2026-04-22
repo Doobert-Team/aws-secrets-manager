@@ -7,4 +7,6 @@ return [
     'cache_store' => env('AWS_SECRETS_CACHE_STORE', 'redis'),
     'name' => env('AWS_SECRETS_NAME', ''),
     'log_channel' => env('AWS_SECRETS_LOG_CHANNEL', 'awssecrets'),
+    'load_in_console' => env('AWS_SECRETS_LOAD_IN_CONSOLE', false),
+    'keys_raw' => env('AWS_SECRETS_KEYS_RAW', false),
 ];
