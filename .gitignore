@@ -1,0 +1,27 @@
+# Laravel/PHP
+/vendor/
+/node_modules/
+/.env
+/.env.*
+.phpunit.result.cache
+/storage/
+/.idea/
+/.vscode/
+.DS_Store
+*.log
+composer.lock
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# IDE files
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# PHPUnit
+coverage/
+
+# AWS credentials (if any)
+.aws/
