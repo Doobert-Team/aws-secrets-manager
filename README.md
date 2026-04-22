@@ -46,6 +46,8 @@ Edit `config/aws-secrets-manager.php` or set these in your `.env`:
 | cache_store        | Laravel cache store to use (e.g., redis)         | redis           |
 | name               | AWS secret name                                  | (empty)         |
 | log_channel        | Log channel for package logs                     | awssecrets      |
+| load_in_console    | Load secrets when running artisan/console        | false           |
+| keys_raw           | Map secret keys to config (see below)            | false           |
 
 **Example `.env`:**
 
@@ -56,6 +58,8 @@ AWS_SECRETS_CACHE_TTL=3600
 AWS_SECRETS_CACHE_STORE=redis
 AWS_SECRETS_NAME=your-secret-name
 AWS_SECRETS_LOG_CHANNEL=awssecrets
+AWS_SECRETS_LOAD_IN_CONSOLE=false
+AWS_SECRETS_KEYS_RAW="DB_PASSWORD:database.connections.mysql.password,API_KEY:services.api.key"
 ```
 
 ---
@@ -73,13 +77,19 @@ $secret = $service->getSecret('your-secret-name');
 
 ### Mapping Secrets to Config
 
-Map secret keys to Laravel config values using the `AWS_SECRETS_KEYS_RAW` environment variable or `services.aws_secrets.keys_raw` config:
 
-```dotenv
-AWS_SECRETS_KEYS_RAW=DB_PASSWORD:database.connections.mysql.password,API_KEY:services.api.key
+**Mapping Secrets to Config**
+
+Set `AWS_SECRETS_KEYS_RAW` or `services.aws_secrets.keys_raw` to map secret keys to Laravel config values:
+
+```
+AWS_SECRETS_KEYS_RAW="DB_PASSWORD:database.connections.mysql.password,API_KEY:services.api.key"
 ```
 
-Format: `SECRET_KEY:config.path`, comma-separated for multiple pairs.
+Format: `SECRET_KEY:config.path`, comma-separated for multiple pairs. This will automatically set config values at runtime.
+**Load in Console**
+
+Set `AWS_SECRETS_LOAD_IN_CONSOLE=true` to load secrets when running artisan/console commands (disabled by default for performance).
 
 ---
 
