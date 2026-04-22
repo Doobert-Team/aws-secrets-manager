@@ -99,6 +99,33 @@ All logs are sent to the channel defined in `log_channel` (default: `awssecrets`
 
 ---
 
+## Refreshing the secrets in Cache
+
+## 🛡 Artisan Command: Refresh Secrets
+
+
+You can manually refresh and cache your AWS secret after rotation using the included artisan command:
+
+```bash
+php artisan doobertaws:secret-refresh
+```
+
+This will force a fresh fetch from AWS Secrets Manager and update the cache. Useful after rotating secrets in AWS.
+
+**Options:**
+
+- `--all` (future use): Refresh all configured secrets.
+
+**Example output:**
+
+```
+Refreshing secret: your-secret-name
+Secret refreshed and cached in Redis successfully.
+    Keys available: DB_PASSWORD, API_KEY
+```
+
+If the secret cannot be fetched, you’ll see an error message with troubleshooting tips.
+
 ## ✅ Testing
 
 From the package directory:

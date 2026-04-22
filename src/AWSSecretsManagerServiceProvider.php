@@ -26,6 +26,13 @@ class AWSSecretsManagerServiceProvider extends ServiceProvider
             __DIR__.'/../config/aws-secrets-manager.php' => config_path('aws-secrets-manager.php'),
         ], 'config');
 
+        // Register artisan command
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Doobert\AWSSecretsManager\Console\RefreshAwsSecret::class,
+            ]);
+        }
+
         // Check if AWS Secrets Manager integration is enabled
         if (!config('services.aws_secrets.enabled', true)) {
             \Log::info('AWS Secrets Manager integration is disabled by configuration. Using .env values.');
