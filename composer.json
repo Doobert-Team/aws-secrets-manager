@@ -11,7 +11,14 @@
     "autoload-dev": {
         "psr-4": {
             "Doobert\\AWSSecretsManager\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/helpers.php",
+            "tests/LogStub.php",
+            "tests/CacheStub.php",
+            "tests/LogGlobalStub.php",
+            "tests/CacheRepositoryStub.php"
+        ]
     },
     "require": {
         "php": ">=8.0",
