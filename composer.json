@@ -1,0 +1,33 @@
+{
+    "name": "doobert/aws-secrets-manager",
+    "description": "Laravel package for AWS Secrets Manager integration.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Doobert\\AWSSecretsManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Doobert\\AWSSecretsManager\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "illuminate/support": ">=8.0",
+        "aws/aws-sdk-php": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Doobert\\AWSSecretsManager\\AWSSecretsManagerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
