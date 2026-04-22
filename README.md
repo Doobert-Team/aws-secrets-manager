@@ -80,7 +80,7 @@ $secret = $service->getSecret('your-secret-name');
 
 **Mapping Secrets to Config**
 
-Set `AWS_SECRETS_KEYS_RAW` or `services.aws_secrets.keys_raw` to map secret keys to Laravel config values:
+Set `AWS_SECRETS_KEYS_RAW` or `aws-secrets-manager.keys_raw` to map secret keys to Laravel config values:
 
 ```
 AWS_SECRETS_KEYS_RAW="DB_PASSWORD:database.connections.mysql.password,API_KEY:services.api.key"

@@ -19,9 +19,9 @@ class AWSSecretsManagerService
 
     public function __construct()
     {
-        $this->check_latency = (bool) config('services.aws_secrets.check_latency', false);
-        $this->enabled = (bool) config('services.aws_secrets.enabled', true);
-        $this->log_channel = config('services.aws_secrets.log_channel', null) ?? config('logging.default', 'stack');
+        $this->check_latency = (bool) config('aws-secrets-manager.check_latency', false);
+        $this->enabled = (bool) config('aws-secrets-manager.enabled', true);
+        $this->log_channel = config('aws-secrets-manager.log_channel', null) ?? config('logging.default', 'stack');
     }
 
     protected function log($level, $message, array $context = [])
@@ -154,7 +154,7 @@ class AWSSecretsManagerService
         if (!$this->enabled) {
             return [];
         }
-        $secretName = trim((string) config('services.aws_secrets.name', ''));
+        $secretName = trim((string) config('aws-secrets-manager.name', ''));
 
         if ($secretName === '') {
             return [];
@@ -197,7 +197,7 @@ class AWSSecretsManagerService
     // Return the AWS region used when calling Secrets Manager.
     protected function region(): string
     {
-        return (string) config('services.aws_secrets.region', (string) config('app.region', 'us-west-2'));
+        return (string) config('aws-secrets-manager.region', (string) config('app.region', 'us-west-2'));
     }
 
     // Ask AWS for the secret value and convert it into a PHP array.
@@ -229,7 +229,7 @@ class AWSSecretsManagerService
     // Return the cache lifetime in seconds, defaulting to one hour.
     protected function cacheTtl(): int
     {
-        $ttl = (int) config('services.aws_secrets.cache_ttl', 3600);
+        $ttl = (int) config('aws-secrets-manager.cache_ttl', 3600);
 
         return $ttl > 0 ? $ttl : 3600;
     }
@@ -250,7 +250,7 @@ class AWSSecretsManagerService
     protected function store(): \Illuminate\Cache\Repository
     {
         return Cache::store(
-            (string) config('services.aws_secrets.cache_store', 'redis')
+            (string) config('aws-secrets-manager.cache_store', 'redis')
         );
     }
 

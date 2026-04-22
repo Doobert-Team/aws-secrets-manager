@@ -34,16 +34,16 @@ class AWSSecretsManagerServiceProvider extends ServiceProvider
         }
 
         // Check if AWS Secrets Manager integration is enabled
-        if (!config('services.aws_secrets.enabled', true)) {
+        if (!config('aws-secrets-manager.enabled', true)) {
             \Log::info('AWS Secrets Manager integration is disabled by configuration. Using .env values.');
             return;
         }
 
-        if ($this->app->runningInConsole() && !config('services.aws_secrets.load_in_console', false)) {
+        if ($this->app->runningInConsole() && !config('aws-secrets-manager.load_in_console', false)) {
             return;
         }
 
-        $secretName = trim((string) config('services.aws_secrets.name', ''));
+        $secretName = trim((string) config('aws-secrets-manager.name', ''));
 
         if ($secretName === '') {
             return;
@@ -77,7 +77,7 @@ class AWSSecretsManagerServiceProvider extends ServiceProvider
 
     protected function mappingFromConfig(): array
     {
-        $rawPairs = array_filter(array_map('trim', explode(',', (string) config('services.aws_secrets.keys_raw', ''))));
+        $rawPairs = array_filter(array_map('trim', explode(',', (string) config('aws-secrets-manager.keys_raw', ''))));
         $mapping = [];
 
         foreach ($rawPairs as $pair) {
