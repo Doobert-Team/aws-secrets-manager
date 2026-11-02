@@ -1,7 +1,17 @@
 <?php
 // Minimal stubs for Laravel helpers to allow standalone testing
 if (!function_exists('config')) {
-    function config($key, $default = null) {
+    function config($key = null, $default = null) {
+        // Values set in tests via config([...]) override the defaults below
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $GLOBALS['__test_config'][$k] = $v;
+            }
+            return null;
+        }
+        if (array_key_exists($key, $GLOBALS['__test_config'] ?? [])) {
+            return $GLOBALS['__test_config'][$key];
+        }
         // Return some sensible defaults for testing
         $defaults = [
             'aws-secrets-manager.check_latency' => false,

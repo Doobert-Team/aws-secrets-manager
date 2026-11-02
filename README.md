@@ -87,6 +87,15 @@ AWS_SECRETS_KEYS_RAW="DB_PASSWORD:database.connections.mysql.password,API_KEY:se
 ```
 
 Format: `SECRET_KEY:config.path`, comma-separated for multiple pairs. This will automatically set config values at runtime.
+
+**One secret key, several config paths:** repeat the key once per path. Every listed path receives the value.
+
+```
+AWS_SECRETS_KEYS_RAW="MAIL_PASSWORD:mail.mailers.smtp.password,MAIL_PASSWORD:mail.mailers.smtp_bulk.password"
+```
+
+> Before v1.0.7 only the last path listed for a key was set; the others silently kept their `.env` values.
+
 **Load in Console**
 
 Set `AWS_SECRETS_LOAD_IN_CONSOLE=true` to load secrets when running artisan/console commands (disabled by default for performance).

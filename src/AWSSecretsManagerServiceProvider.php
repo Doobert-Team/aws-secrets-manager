@@ -66,15 +66,24 @@ class AWSSecretsManagerServiceProvider extends ServiceProvider
             return;
         }
 
-        foreach ($mapping as $secretKey => $configPath) {
+        $this->applySecretsToConfig($secrets, $mapping);
+    }
+
+    // Write each mapped secret value to every config path listed for its key.
+    protected function applySecretsToConfig(array $secrets, array $mapping): void
+    {
+        foreach ($mapping as $secretKey => $configPaths) {
             if (!array_key_exists($secretKey, $secrets)) {
                 continue;
             }
 
-            config([$configPath => $secrets[$secretKey]]);
+            foreach ($configPaths as $configPath) {
+                config([$configPath => $secrets[$secretKey]]);
+            }
         }
     }
 
+    // Returns [SECRET_KEY => [config.path, ...]] parsed from keys_raw.
     protected function mappingFromConfig(): array
     {
         $rawPairs = array_filter(array_map('trim', explode(',', (string) config('aws-secrets-manager.keys_raw', ''))));
@@ -92,7 +101,8 @@ class AWSSecretsManagerServiceProvider extends ServiceProvider
                 continue;
             }
 
-            $mapping[$secretKey] = $configPath;
+            // One secret key may feed several config paths (e.g. two mailers sharing a password).
+            $mapping[$secretKey][] = $configPath;
         }
 
         return $mapping;

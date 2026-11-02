@@ -4,5 +4,7 @@ if (!class_exists('Log')) {
     class Log {
         public static function channel($channel) { return new static; }
         public static function log($level, $message, array $context = []) {}
+        public static function info($message, array $context = []) {}
+        public static function warning($message, array $context = []) {}
     }
 }
